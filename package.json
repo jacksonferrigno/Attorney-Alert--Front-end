@@ -2,6 +2,7 @@
   "name": "attorney-alert-frontend",
   "version": "0.1.0",
   "private": true,
+  "author": "Afaq Ahmad",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
