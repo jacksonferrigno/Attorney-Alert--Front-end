@@ -6,4 +6,3 @@ const config = {
 };
 
 export default config;
-rm -rf .git
