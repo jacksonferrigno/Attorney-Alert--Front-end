@@ -1,6 +1,6 @@
-import { ClerkProvider } from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
-import "./globals.css"; // Corrected the import path based on the `app` directory structure
+import "./globals.css";
 
 // Initialize Google Font
 const inter = Inter({ subsets: ["latin"] });
@@ -15,6 +15,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className={inter.className}>
         <ClerkProvider>
+          <SignedOut>
+            {/* If the user is signed out, show the SignInButton */}
+            <SignInButton />
+          </SignedOut>
+          
+          <SignedIn>
+            {/* If the user is signed in, show the UserButton */}
+            <UserButton />
+          </SignedIn>
+          
           {/* Main content where page-specific content will be injected */}
           <main>
             {children}

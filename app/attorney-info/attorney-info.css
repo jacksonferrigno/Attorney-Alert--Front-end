@@ -26,6 +26,11 @@ body {
     color: #2c3e50;
   }
   
+  .attorney-info-page p {
+    margin-bottom: 20px;
+    color: #555;
+  }
+  
   .attorney-info-page form {
     display: flex;
     flex-direction: column;
@@ -67,7 +72,8 @@ body {
     margin-right: 10px;
   }
   
-  .attorney-info-page button[type="submit"] {
+  .attorney-info-page button[type="submit"],
+  .attorney-info-page button {
     width: 100%;
     background-color: #ff4c4c;
     color: white;
@@ -81,13 +87,18 @@ body {
     transition: background-color 0.3s ease;
   }
   
-  .attorney-info-page button[type="submit"]:hover {
+  .attorney-info-page button[type="submit"]:hover,
+  .attorney-info-page button:hover {
     background-color: #d12f2f;
   }
   
   .attorney-info-page .error {
     color: red;
     margin-bottom: 10px;
+  }
+  
+  .sign-in-container {
+    margin-top: 50px; /* Move the sign-in box down a bit */
   }
   
   /* Add some responsiveness */
@@ -117,38 +128,17 @@ body {
     border-color: #ccc;
   }
   
-  .attorney-info-page button[type="submit"] {
+  .attorney-info-page button[type="submit"],
+  .attorney-info-page button {
     background-color: #ff4c4c;
   }
   
-  .attorney-info-page button[type="submit"]:hover {
+  .attorney-info-page button[type="submit"]:hover,
+  .attorney-info-page button:hover {
     background-color: #d12f2f;
   }
   
-  /* Style for suggestions dropdown */
-  .suggestions {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    background-color: #f0f0f0; /* Very light grey box color */
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    position: absolute;
-    width: 100%;
-    z-index: 1000;
-    max-height: 200px;
-    overflow-y: auto;
-  }
-  
-  .suggestions li {
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .suggestions li:hover {
-    background-color: #dcdcdc; /* Slightly darker grey on hover */
-  }
+  /* Confirmation modal styles */
   .confirmation-modal {
     position: fixed;
     top: 0;

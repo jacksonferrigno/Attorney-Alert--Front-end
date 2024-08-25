@@ -1,17 +1,54 @@
+"use client";
+
+import { useState, useEffect } from 'react';
 import Link from "next/link";
+import Image from 'next/image';
+import { useUser } from '@clerk/nextjs';  // Import useUser hook from Clerk
+import { useRouter } from 'next/navigation'; // Import useRouter for navigation
+import AA_LOGO from '/public/AA_LOGO.png';  
 
 export default function Home() {
+  const { isSignedIn } = useUser();  // Check if the user is signed in
+  const router = useRouter();  // For redirecting to attorney-info page
+  const [showFloatingCTA, setShowFloatingCTA] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const heroSection = document.querySelector('.hero-section');
+      if (heroSection) {
+        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
+        setShowFloatingCTA(window.pageYOffset > heroBottom);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (!isSignedIn) {
+      e.preventDefault();
+      router.push('/attorney-info');  // Redirect to the attorney-info page if not signed in
+    }
+  };
+
   return (
     <>
       {/* Navigation Bar */}
       <nav className="navbar">
         <div className="navbar-container">
-          <a href="#" className="logo">Attorney Alert</a>
+          <Link href="/">
+            <Image 
+              src={AA_LOGO} 
+              alt="Attorney Alert Logo" 
+              className="logo"
+            /> 
+          </Link>
           <ul className="nav-links">
             <li><a href="#features" className="nav-link">Features</a></li>
             <li><a href="#services" className="nav-link">Services</a></li>
             <li>
-              <Link href="/register" className="nav-link">
+              <Link href="/attorney-info" className="nav-link" onClick={handleProtectedNavigation}>
                 Leads Portal
               </Link>
             </li>
@@ -21,7 +58,7 @@ export default function Home() {
       </nav>
 
       {/* Floating Call-to-Action Button */}
-      <Link href="/attorney-info" className="cta-floating-button">
+      <Link href="/attorney-info" className={`cta-floating-button ${showFloatingCTA ? 'visible' : 'hidden'}`} onClick={handleProtectedNavigation}>
         Boost Your Client Base
       </Link>
 
@@ -32,7 +69,7 @@ export default function Home() {
         <div className="hero-content">
           <h1 id="headline">Expand Your Client Base</h1>
           <p id="subtitle" className="subtitle">Connect with clients through innovative and refined tools</p>
-          <Link href="/attorney-info" className="cta-button">
+          <Link href="/attorney-info" className="cta-button" onClick={handleProtectedNavigation}>
             Start Growing Now
           </Link>
         </div>
