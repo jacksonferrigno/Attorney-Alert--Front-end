@@ -3,32 +3,18 @@
 import { useState, useEffect } from 'react';
 import Link from "next/link";
 import Image from 'next/image';
-import { useUser } from '@clerk/nextjs';  // Import useUser hook from Clerk
-import { useRouter } from 'next/navigation'; // Import useRouter for navigation
+import { useUser, SignInButton } from '@clerk/nextjs';  // Import useUser and SignInButton from Clerk
 import AA_LOGO from '/public/AA_LOGO.png';  
 
 export default function Home() {
   const { isSignedIn } = useUser();  // Check if the user is signed in
-  const router = useRouter();  // For redirecting to attorney-info page
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroSection = document.querySelector('.hero-section');
-      if (heroSection) {
-        const heroBottom = heroSection.offsetTop + heroSection.offsetHeight;
-        setShowFloatingCTA(window.pageYOffset > heroBottom);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!isSignedIn) {
       e.preventDefault();
-      router.push('/attorney-info');  // Redirect to the attorney-info page if not signed in
+      // Optionally display a message or highlight the sign-in button
+      alert("Please sign in to access this page.");
     }
   };
 
@@ -75,6 +61,14 @@ export default function Home() {
         </div>
         <div className="scroll-down">↓</div>
       </section>
+
+      {/* Display Sign-In Button if Not Signed In */}
+      {!isSignedIn && (
+        <div className="sign-in-prompt">
+          <p>Please sign in to access the Leads Portal and other protected features.</p>
+          <SignInButton mode="modal" />
+        </div>
+      )}
 
       {/* Features Section */}
       <section id="features" className="features-section">
