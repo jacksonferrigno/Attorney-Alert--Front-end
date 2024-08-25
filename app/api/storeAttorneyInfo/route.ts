@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import mongoose from 'mongoose';
 import { Attorney } from '../../attorney-info/model';
 
+export const runtime = 'nodejs'; // Use this instead of the deprecated config
+
 export async function POST(request: Request) {
   const body = await request.json();
   const { firstName, lastName, practiceName, barNumber, email, phoneNumber, consent } = body;
@@ -13,7 +15,7 @@ export async function POST(request: Request) {
   try {
     // Connect to MongoDB
     if (!mongoose.connection.readyState) {
-      await mongoose.connect('INSERT MONGODBURI'); 
+      await mongoose.connect('mongodb://localhost:27017/loginApp'); 
     }
 
     // Store attorney information in the 'users' collection

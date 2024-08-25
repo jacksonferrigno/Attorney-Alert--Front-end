@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import fetch from 'node-fetch';
 import * as cheerio from 'cheerio';
 
+export const runtime = 'nodejs'; // Use this instead of the deprecated config
+
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const barNumber = searchParams.get('num');
@@ -74,4 +76,3 @@ export async function GET(request: Request) {
         return NextResponse.json({ error: "An error occurred while fetching data" }, { status: 500 });
     }
 }
- 
