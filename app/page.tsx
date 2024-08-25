@@ -10,14 +10,6 @@ export default function Home() {
   const { isSignedIn } = useUser();  // Check if the user is signed in
   const [showFloatingCTA, setShowFloatingCTA] = useState(false);
 
-  const handleProtectedNavigation = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (!isSignedIn) {
-      e.preventDefault();
-      // Optionally display a message or highlight the sign-in button
-      alert("Please sign in to access this page.");
-    }
-  };
-
   return (
     <>
       {/* Navigation Bar */}
@@ -34,7 +26,7 @@ export default function Home() {
             <li><a href="#features" className="nav-link">Features</a></li>
             <li><a href="#services" className="nav-link">Services</a></li>
             <li>
-              <Link href="/attorney-info" className="nav-link" onClick={handleProtectedNavigation}>
+              <Link href="/attorney-info" className="nav-link">
                 Leads Portal
               </Link>
             </li>
@@ -44,7 +36,7 @@ export default function Home() {
       </nav>
 
       {/* Floating Call-to-Action Button */}
-      <Link href="/attorney-info" className={`cta-floating-button ${showFloatingCTA ? 'visible' : 'hidden'}`} onClick={handleProtectedNavigation}>
+      <Link href="/attorney-info" className={`cta-floating-button ${showFloatingCTA ? 'visible' : 'hidden'}`}>
         Boost Your Client Base
       </Link>
 
@@ -55,7 +47,7 @@ export default function Home() {
         <div className="hero-content">
           <h1 id="headline">Expand Your Client Base</h1>
           <p id="subtitle" className="subtitle">Connect with clients through innovative and refined tools</p>
-          <Link href="/attorney-info" className="cta-button" onClick={handleProtectedNavigation}>
+          <Link href="/attorney-info" className="cta-button">
             Start Growing Now
           </Link>
         </div>
